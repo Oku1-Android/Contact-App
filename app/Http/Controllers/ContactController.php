@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Company;
+use App\Models\Contacts;
 
 class ContactController extends Controller
 {
     public function index(){
 
-        return view('contacts.index');
+        $Contacts = Contacts::all();
+
+        return view('contacts.index', compact('Contacts'));
     }
 
     public function create(){
