@@ -31,6 +31,7 @@ class companiesTableSeeder extends Seeder
           foreach(range(1, 10) as $index)
           {
               $companies[]=[
+                 
                   'name' => $faker->company,
                   'address' => $faker->address,
                   'website' => $faker->domainName,

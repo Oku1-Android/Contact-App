@@ -43,7 +43,7 @@ class ContactsTableSeeder extends Seeder
                         'phone' => $faker->e164PhoneNumber,
                         'email' => $faker->email,
                         'address' => $faker->country,
-                        'company_id'=>company::pluck('id')->random()
+                        'company_id'=>Company::pluck('id')->random()
               ];
           }
   

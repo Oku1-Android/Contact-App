@@ -8,16 +8,21 @@
         <div class="col-md-8">
           <div class="card">
             <div class="card-header card-title">
-              <strong>Add New Contact</strong>
+              <strong>Edit Contact</strong>
             </div>           
             <div class="card-body">
 
-              <form action="{{route('contacts.store')}}" method="post" >
+                <form action="{{route('contacts.store')}}" method="post" >
+                  @csrf
+                  {{-- @method('PUT') --}}
+                @include('contacts._form')
+                </form>
+{{-- 
+              <form action="{{route('contacts/{contact}.update')}}" method="post" >
+                @method('PUT')
                 @csrf
-                {{-- @method('PUT') --}}
               @include('contacts._form')
-             
-            </form>
+              </form> --}}
             
             </div>
           </div>
