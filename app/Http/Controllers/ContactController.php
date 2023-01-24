@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Resources\ContactsCollection;
 use App\Http\Resources\pagination;
 use Illuminate\Http\Request;
