@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 class SearchScope implements Scope
 {
 
-    protected $serchColumns= ['first_name', 'last_name', 'email']; //makes the scope reusable
+    protected $searchColumns= []; //makes the scope reusable
 
 
 public function apply(Builder $builder, Model $model)
@@ -18,16 +18,29 @@ public function apply(Builder $builder, Model $model)
     
 
     if($search = request('search')){
-        $builder->where('first_name', 'LIKE', "%{$search}%");
-        $builder->orwhere('last_name', 'LIKE', "%{$search}%");
-        $builder->orwhere('email', 'LIKE', "%{$search}%");
-        $builder->orWhereHas('company', function($query)use($search){
-        $query->where('name', 'LIKE', "%{$search}%");
-        });
+        // $builder->where('first_name', 'LIKE', "%{$search}%");
+        
+        foreach($this->searchColumns as $column){
 
-    }
+            $arr = explode('.', $column);
 
-       
+            if(count($arr) == 2){
+                list($relationship, $col) = $arr;
+
+                $builder->orWhereHas($relationship, function($query)use($search, $col){
+                 $query->where($col, 'LIKE', "%{$search}%");
+                });
+            }
+            else{
+                $builder->orWhere($column, 'LIKE', "%{$search}%");
+            }
+           
+        }
+        // $builder->orwhere('email', 'LIKE', "%{$search}%");
+        // 
+       // });
+
+    }      
 
 }
 
