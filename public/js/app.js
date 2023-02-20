@@ -28,7 +28,7 @@ document.getElementById('btn-clear').addEventListener('click', ()=>{
 })
 
 //controlling the toggle button physibility
-const toggleClearButton = ()=>{ 
+const toggleClearButton = () =>{ 
     let query = location.search,
     pattern = /[?&]search=/,
     button = document.getElementById('btn-clear')

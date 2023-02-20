@@ -17,7 +17,8 @@
                   </div>
                 </div>
               <div class="card-body">
-                      
+
+              {{-- the company page --}}
                @include('contacts._filter')
 
                 <table class="table table-striped table-hover">

@@ -18,13 +18,14 @@ public function apply(Builder $builder, Model $model)
     
 
     if($search = request('search')){
-        // $builder->where('first_name', 'LIKE', "%{$search}%");
         
+        //search through the columns
         foreach($this->searchColumns as $column){
 
             $arr = explode('.', $column);
 
             if(count($arr) == 2){
+                
                 list($relationship, $col) = $arr;
 
                 $builder->orWhereHas($relationship, function($query)use($search, $col){
