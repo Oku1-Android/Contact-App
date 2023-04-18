@@ -20,6 +20,8 @@ class CreateCompaniesTable extends Migration
             $table->string('website')->nullable();
             $table->string('email');
             $table->timestamps();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
         });
     }
 

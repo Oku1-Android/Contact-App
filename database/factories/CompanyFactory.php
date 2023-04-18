@@ -4,22 +4,24 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ContactsFactory extends Factory
+class CompanyFactory extends Factory
 {
     /**
      * Define the model's default state.
      *
      * @return array
      */
+
+
     public function definition()
     {
         return [
-            'first_name'=>$this->faker->firstName,
-            'last_name'=>$this->faker->lastName,
-            'email'=>$this->faker->email,
-            'phone'=>$this->faker->phnoneNumber,
+            'name'=>$this->faker->name,
             'address'=>$this->faker->address,
-            'company_id'=>Company::pluck('id')->random()
+            'website'=>$this->faker->website,
+            'email'=>$this->faker->email,
+            'created_at' => now(),
+            'updated_at' => now()
         ];
     }
 }

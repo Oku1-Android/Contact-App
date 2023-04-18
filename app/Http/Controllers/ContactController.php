@@ -9,21 +9,21 @@ use App\Models\Contacts;
 use Illuminate\Validation\Validator;
 
 class ContactController extends Controller
-{   
+{
      /**
      * Store a new user.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
+
     /**
      * Show all application contacts.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request ){
- 
+
             $companies = Company::orderBy('name')->pluck('name','id')->prepend('All Companies', '');
 
            // \DB::enableQueryLog();
@@ -40,7 +40,7 @@ class ContactController extends Controller
         $contact = new Contacts();
 
         $companies = Company::orderBy('name')->pluck('name','id')->prepend('All Companies', '');
-       
+
 
         //$contact = Contacts::find($id);
 
@@ -58,7 +58,7 @@ class ContactController extends Controller
             'phone'=>'required',
             'email'=>'required|email',
             'address'=>'required',
-            //to chect if company id exist in table companies. 
+            //to chect if company id exist in table companies.
             'company_id'=>'required|exists:companies,id'
         ]);
         Contacts::create($request->all());
@@ -86,7 +86,7 @@ class ContactController extends Controller
     //         'phone'=>'required',
     //         'email'=>'required|email',
     //         'address'=>'required',
-    //         //to check if company id exist in table companies. 
+    //         //to check if company id exist in table companies.
     //         'company_id'=>'required|exists:companies,id'
     //     ]);
     //     Contacts::create($request->all());
@@ -98,9 +98,9 @@ class ContactController extends Controller
 
         public function show($id){
 
-        
+
             $contact = Contacts::findOrFail($id);
-        
+
         return view('contacts.show', compact('contact', $contact));
 
         //  return view('contacts.show')->with('contact', $contact);
@@ -116,4 +116,4 @@ class ContactController extends Controller
         }
     }
 
-    
+

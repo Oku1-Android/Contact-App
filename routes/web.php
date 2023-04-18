@@ -15,11 +15,15 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-    return view('/welcome');
-});
+// Route::get('/', function () {
+//     return view('/welcome');
+// });
+
+Route::get('/',[App\Http\Controllers\HomeController::class, 'index'])
+->name('home');
 
 Route::resource('/contacts', ContactController::class);
+
 
 
 //Route::put('/contacts.create', [ContactController::class, 'create'])->name('contacts.create');
@@ -30,3 +34,10 @@ Route::resource('/contacts', ContactController::class);
 
 
 // Route::get('contacts/{id}.show', [ContactController::class, 'show'])->name('contacts.show');
+
+Auth::routes();
+
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+// Route::get('/logout', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

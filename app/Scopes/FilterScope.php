@@ -12,21 +12,24 @@ use App\Scopes;
 class FilterScope implements Scope
 {
 
-//protected $filterColumns = ['company_id'];
+protected $filterColumns = [];
 
 
 public function apply(Builder $builder, Model $model)
 { 
-    // foreach($this->filterColumns  as $column)
-    // {
-    //     if($model = request($column)){
-    //         $builder->where($column, $value);
-    //         }
+    $columns = property_exists($model, 'filter_columns') ? $model->filterColumns: $this->filterColumns;
     
-    // }
-    if($companyId = request('company_id')){
-        $builder->where('company_id', $companyId);
-        }
+    foreach($this->filterColumns  as $column)
+    {
+        if($value = request($column)){
+            $builder->where($column, $value);
+            }
+      
+    }
+
+    // if($companyId = request('company_id')){
+    //     $builder->where('company_id', $companyId);
+    //     }
 
     // if($search = request('search')){
     //         $builder->where('first_name', 'LIKE', "%{$search}%");

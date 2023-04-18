@@ -18,9 +18,11 @@ public function apply(Builder $builder, Model $model)
     
 
     if($search = request('search')){
+
+        $columns = property_exists($model, 'searchColumns') ? $model->searchColumns : $this->searchColumns;
         
         //search through the columns
-        foreach($this->searchColumns as $column){
+        foreach($columns as $column){
 
             $arr = explode('.', $column);
 
