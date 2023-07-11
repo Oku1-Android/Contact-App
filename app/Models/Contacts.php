@@ -8,15 +8,17 @@ use Illuminate\Database\Eloquent\Scope;
 use App\Scopes\FilterScope;
 use App\Scopes\SearchScope;
 use App\Scopes\ContactSearchScope;
-
+use App\Models\User;
+use Database\Seeders;
 
 class Contacts extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['first_name', 'last_name','address', 'phone', 'email', 'id','company_id'];
+    protected $fillable = ['first_name', 'last_name','address', 'phone', 'email', 'id','company_id', 'user_id'];
 
     protected $filterColumns = ['company_id'];
+
 
     public function company()
     {

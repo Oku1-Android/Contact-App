@@ -33,11 +33,10 @@
                     </tr>
                   </thead>
                   <tbody>
-
                     @if($message=session('message'))
                       <div class="alert alert-success">{{ $message }}</div>
                     @endif
-                   
+
 
                     @if($Contacts->count())
                       @foreach ( $Contacts as $index=>$contact )
@@ -54,8 +53,8 @@
                           <a href="{{ route('contacts.destroy', $contact->id) }}" class="btn-delete btn btn-sm btn-circle btn-outline-danger" title="Delete"><i class="fa fa-times"></i></a>
                         </td>
                       </tr>
-                      
-                     
+
+
                       @endforeach
                       <form id="form-delete" method="POST" style="display: none" >
                       @csrf
@@ -64,16 +63,16 @@
                     @endif
                     {{-- {{ $Contacts->links('pagination::bootstrap-4') }} --}}
                   </tbody>
-                </table> 
-                
+                </table>
+
                 {{ $Contacts->links() }}
                 {{-- {{ $Contacts->appends(request()->only('company_id'))->links() }} --}}
-                  
-               
+
+
               </div>
             </div>
           </div>
         </div>
       </div>
     </main>
-@endsection 
+@endsection

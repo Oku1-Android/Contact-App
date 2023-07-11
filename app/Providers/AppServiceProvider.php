@@ -25,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+
+        // // Factory::guessingFactoryNamesUsing(function (string $modelName){
+        // //     return 'Database\\Factories\\'.Arr::last(explode('\\', $modelName)).'Factory';
+        // });
       // \Illuminate\Pagination\Paginator::useBootstrapFive();
       // Paginator::useBootstrapFive();
       // Paginator::useBootstrapFour();

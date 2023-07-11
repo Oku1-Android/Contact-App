@@ -5,8 +5,12 @@ use App\Http\Resources\ContactsCollection;
 use App\Http\Resources\pagination;
 use Illuminate\Http\Request;
 use App\Models\Company;
+use App\Models\User;
 use App\Models\Contacts;
 use Illuminate\Validation\Validator;
+//use App\Http\Controllers\Auth;
+use Illuminate\Support\Facades\Auth;
+
 
 class ContactController extends Controller
 {
@@ -22,32 +26,34 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Request $request ){
 
-            $companies = Company::orderBy('name')->pluck('name','id')->prepend('All Companies', '');
+
+
+        //$user = Auth::user();
+        $user = auth()->user();
+
+            //var_dump($user);
+            $companies = $user->companies()->orderBy('name')->pluck('name','id')->prepend('All Companies', '');
 
            // \DB::enableQueryLog();
 
-            $Contacts = Contacts::LatestFirst()->paginate(10);
+            $Contacts = $user->contacts()->LatestFirst()->paginate(10);
             //dd(\DB::getQueryLog());
 
             return view('contacts.index', compact('Contacts', 'companies' ));
     }
-
-
 
     public function create(){
         $contact = new Contacts();
 
         $companies = Company::orderBy('name')->pluck('name','id')->prepend('All Companies', '');
 
-
         //$contact = Contacts::find($id);
-
         //return view('/contacts.create', compact('companies', 'contact'));
         return view('/contacts.create', compact('companies', 'contact'));
     }
-
 
      public function store(Request $request){
         //dd($request->segment());
@@ -65,7 +71,6 @@ class ContactController extends Controller
 
         return redirect()->route('contacts.index')->with('message', 'Contact successfully saved');
      }
-
 
      public function edit($id){
 
@@ -103,17 +108,14 @@ class ContactController extends Controller
 
         return view('contacts.show', compact('contact', $contact));
 
-        //  return view('contacts.show')->with('contact', $contact);
+        //  return view('contacts.show')->with('contact', $contact);o
         }
 
 
         public function destroy($id){
-
          $contact = Contacts::findOrFail($id);
          $contact->delete();
 
          return back()->with('message', "Contact has been deleted successfully");
         }
-    }
-
-
+}
