@@ -18,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/dashboard';
-    
+
 
     /**
      * The controller namespace for the application.
@@ -36,6 +36,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        //binding model to route
+       // Route::model('contacts', Contacts::class);
+
+
+
         $this->configureRateLimiting();
 
         $this->routes(function () {

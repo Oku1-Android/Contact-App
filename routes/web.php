@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CompanyController;
 use Illuminate\Http\Request;
 
 /*
@@ -22,7 +23,13 @@ use Illuminate\Http\Request;
 Route::get('/',[App\Http\Controllers\HomeController::class, 'index'])
 ->name('home');
 
-Route::resource('/contacts', ContactController::class);
+//Route::resource('/contacts', ContactController::class)->except('index', 'show');
+//Route::resource('/contacts', ContactControllerv::class)->only('index', 'show');
+
+Route::resources([
+    '/contacts' => ContactController::class,
+    '/companies' => CompanyController::class
+]);
 
 
 
