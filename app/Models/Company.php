@@ -32,5 +32,12 @@ class Company extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public static function userCompanies(){
+        // this displays all the companies in the drop down
+        //return Company::orderBy('name')->pluck('name','id')->prepend('All Companies', '');
+
+        //This retrieves user's infor but refuses to display on the screen
+        return self::where('user_id', auth()->id())->orderBy('name')->pluck('name','id')->prepend('All Companies', '');
+    }
 
 }

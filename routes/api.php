@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //Route::apiresource('/contacts', ContactController::class);
-Route::apiResources([
-    '/contacts' => ContactController::class,
-    '/companies' => CompanyController::class
-]);
+// Route::apiResources([
+//     '/contacts' => ContactController::class,
+//     '/companies' => CompanyController::class
+// ]);

@@ -26,6 +26,19 @@ Route::get('/',[App\Http\Controllers\HomeController::class, 'index'])
 //Route::resource('/contacts', ContactController::class)->except('index', 'show');
 //Route::resource('/contacts', ContactControllerv::class)->only('index', 'show');
 
+//Route::resource('/contacts', ContactController::class)->except('index', 'show');
+
+//nested resource model
+//Route::resource('/companies.contacts', ContactController::class);
+
+//Naming route
+// Route::resource('/contacts', ContactController::class)->names([
+//     'index' => 'contacts.all',
+//     'show'  => 'contacts.view'
+// ]);
+
+
+
 Route::resources([
     '/contacts' => ContactController::class,
     '/companies' => CompanyController::class
@@ -41,6 +54,7 @@ Route::resources([
 
 
 // Route::get('contacts/{id}.show', [ContactController::class, 'show'])->name('contacts.show');
+
 
 Auth::routes();
 
