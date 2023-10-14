@@ -34,8 +34,6 @@ class ContactController extends Controller
 
     public function index(Request $request ){
 
-
-
             $companies = Company::userCompanies();
             //var_dump($companies);
 
@@ -43,12 +41,17 @@ class ContactController extends Controller
            // \DB::enableQueryLog();
            $user = Auth::user();
 
-           $Contacts = $user->contacts()->LatestFirst()->paginate(10);
-          // dd($Contacts);
+           $Contacts = $user->contacts()->with('company')->LatestFirst()->paginate(10);
+          // dd($Contacts);./
 
           if (Auth::check()) {
             // The user is logged in...
             return view('contacts.index', compact('Contacts', 'companies' ));
+        }
+
+        if (Connect::check()) {
+            // The user is logged in...
+            return view('companies.index', compact('Contacts', 'companies' ));
         }
 
     }
@@ -64,7 +67,7 @@ class ContactController extends Controller
     }
 
 
-     public function store(ContactRequest $request){
+     public function store(Contacts $contacts, ContactRequest $request){
         //dd($request->segment());
 
        // $request->validate($this->validation());
@@ -87,7 +90,7 @@ class ContactController extends Controller
     //  ];
     //  }
 
-    
+
 
      public function edit($id){
 
@@ -110,6 +113,7 @@ class ContactController extends Controller
 
 
         public function destroy($id){
+
          $contact = Contacts::findOrFail($id);
          $contact->delete();
 

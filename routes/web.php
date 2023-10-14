@@ -45,8 +45,7 @@ Route::resources([
 ]);
 
 
-
-//Route::put('/contacts.create', [ContactController::class, 'create'])->name('contacts.create');
+//Route::delete('/companies.{id}', [ContactController::class, 'destroy'])->name('companies.destroy');
 
 //Route::GET('/contacts.create', [ContactController::class, 'create'])->name('contacts.create');
 

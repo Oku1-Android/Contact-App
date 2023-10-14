@@ -16,16 +16,18 @@ protected $filterColumns = [];
 
 
 public function apply(Builder $builder, Model $model)
-{ 
+{
     $columns = property_exists($model, 'filter_columns') ? $model->filterColumns: $this->filterColumns;
-    
+
     foreach($this->filterColumns  as $column)
     {
         if($value = request($column)){
             $builder->where($column, $value);
             }
-      
+
     }
+
+    // Older Method
 
     // if($companyId = request('company_id')){
     //     $builder->where('company_id', $companyId);
@@ -35,11 +37,11 @@ public function apply(Builder $builder, Model $model)
     //         $builder->where('first_name', 'LIKE', "%{$search}%");
     //         $builder->orWhere('last_name', 'LIKE', "%{$search}%");
     //         $builder->orWhere('email', 'LIKE', "%{$search}%");
-            
+
           //  }
 
 
-    
+
 
 
 

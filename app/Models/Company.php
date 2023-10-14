@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Database\factories\Administration\CompanyFactory;
+use App\Scopes\FilterScope;
+use App\Scopes\SearchScope;
+use App\Scopes\companySearchScope;
 
 
 class Company extends Model
@@ -38,6 +41,19 @@ class Company extends Model
 
         //This retrieves user's infor but refuses to display on the screen
         return self::where('user_id', auth()->id())->orderBy('name')->pluck('name','id')->prepend('All Companies', '');
+    }
+
+public function scopeLatestFirst($query){
+
+    return  $query->orderBy('id', 'desc');
+}
+
+protected static function boot(){
+
+    parent::boot();
+
+    static::addGlobalScope(new FilterScope);
+    static::addGlobalScope(new companySearchScope);
     }
 
 }

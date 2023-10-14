@@ -4,6 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use App\Http\Resources\companiesCollection;
+use App\Http\Resources\pagination;
+use App\Http\Requests\ContactRequest;
+use App\Http\Requests\companyRequest;
+use App\Models\User;
+use App\Models\Contacts;
+use Illuminate\Support\Collection;
+use Illuminate\Validation\Validator;
+//use App\Http\Controllers\Auth;
+use Illuminate\Support\Facades\Auth;
+
 
 class CompanyController extends Controller
 {
@@ -12,10 +23,19 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+
+    public function __Construct(){
+            $this->middleware(['auth']);
     }
+
+    public function index(Request $request)
+    {
+        $companies = auth()->user()->companies()->with('contacts')->latest()->paginate(100);
+
+        return view('companies.index', compact('companies'));
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -24,7 +44,8 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        $company = new Company;
+        return view('companies.create', compact('company'));
     }
 
     /**
@@ -33,9 +54,12 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(companyRequest $request)
     {
-        //
+        //requesting the data
+
+        $request->user()->companies()->create($request->all());
+        return redirect()->route('companies.index')->with('message', "Company has been added successfully");
     }
 
     /**
@@ -46,7 +70,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        return view('companies.show', compact('company'));
     }
 
     /**
@@ -55,9 +79,12 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit($id)
     {
-        //
+        $company = Company::findOrFail($id);
+        return view('/companies.edit')->with('company', $company);
+
+        //return view('companies.edit', compact('company'));
     }
 
     /**
@@ -67,9 +94,10 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(companyRequest $request, Company $company)
     {
-        //
+        $company->update($request->all());
+        return redirect('company.index')->with('message', "Company has been updated successfully");
     }
 
     /**
@@ -78,8 +106,13 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
+
     public function destroy(Company $company)
+
     {
-        //
+        $companies->delete();
+        //$company->delete();
+
+        return redirect()->route('companies.index')->withSuccess(__( "Company has been deleted successfully"));
     }
 }

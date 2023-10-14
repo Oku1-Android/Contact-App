@@ -13,6 +13,7 @@ class ContactRequest extends FormRequest
      */
     public function authorize()
     {
+        //dd($this->route('contacts'));
         return true;
     }
 
@@ -44,7 +45,8 @@ class ContactRequest extends FormRequest
             return [
                 'email.email' => 'the email you entered is not valid',
                 'first_name.required' => 'First name cannot be empty',
-                'email.required' => 'email cannot be empty'
+                'email.required' => 'email cannot be empty',
+                "*.required" => 'the :attribute field cannot be empty'
             ];
          }
 }
